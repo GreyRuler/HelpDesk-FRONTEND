@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HelpDesk</title>
+</head>
+<body>
+<div id="app"></div>
+<div class="modal" tabindex="-1" id="modal-create-ticket">
+	<div class="modal-dialog modal-dialog-centered ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Создание задачи</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="form" id="form-create-ticket">
+					<div class="form-group">
+						<label for="short-description__create">Краткое описание</label>
+						<input id="short-description__create" type="text" class="form-control"
+							   name="shortDescription" required>
+					</div>
+					<div class="form-group">
+						<label for="long-description__create">Подробное описание</label>
+						<input id="long-description__create" type="text" class="form-control"
+							   name="longDescription" required>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+				<button type="submit" class="btn btn-primary" form="form-create-ticket">Создать</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" tabindex="-1" id="modal-edit-ticket">
+	<div class="modal-dialog modal-dialog-centered ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Редактирование задачи</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="form" id="form-edit-ticket">
+					<div class="form-group">
+						<label for="short-description__edit">Краткое описание</label>
+						<input id="short-description__edit" type="text" class="form-control"
+							   name="shortDescription" required>
+					</div>
+					<div class="form-group">
+
+						<label for="long-description__edit">Подробное описание</label>
+						<input id="long-description__edit" type="text" class="form-control"
+							   name="longDescription" required>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+				<button type="submit" class="btn btn-primary" form="form-edit-ticket">Сохранить</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
