@@ -30,7 +30,7 @@ jobs:
                 run: npm install
 
             -   name: Lint 🐼
-                run: npm run lint
+                run: npm run lint:fix
 
             -   name: Run Test 🔨
                 run: npm run test
@@ -40,7 +40,7 @@ jobs:
 
             -   name: Deploy ✈
                 run: |
-                    git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+                    git remote set-url origin https://git:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git
                     npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
                 env:
-                    GITHUB_TOKEN: ${{ secrets.TOKEN }}
+                    TOKEN: ${{ secrets.TOKEN }}
