@@ -5,15 +5,24 @@ import TicketsPage from './TicketsPage';
 import Modal from './ui/modals/Modal';
 import CreateTicketForm from './ui/forms/CreateTicketForm';
 import EditTicketForm from './ui/forms/EditTicketForm';
+import Toast from './ui/widgets/Toast';
 
 export default class App {
 	private static app: HTMLElement;
 
-	private static page: TicketsPage;
+	public static page: TicketsPage;
 
-	static modals: any;
+	static modals: {
+		createTicket: Modal,
+		editTicket: Modal,
+	};
 
-	private static forms: any;
+	private static forms: {
+		createTicket: CreateTicketForm,
+		editTicket: EditTicketForm,
+	};
+
+	public static widgets: { toast: Toast };
 
 	static init() {
 		this.app = document.querySelector('#app') as HTMLElement;
@@ -21,11 +30,13 @@ export default class App {
 		this.initPages();
 		this.initForms();
 		this.initModals();
+		this.initWidgets();
 	}
 
 	static initPages() {
 		this.page = new TicketsPage(this.app);
 		this.page.bindToDOM();
+		this.page.renderTickets();
 	}
 
 	static initModals() {
@@ -46,6 +57,14 @@ export default class App {
 			),
 			editTicket: new EditTicketForm(
 				document.querySelector('#form-edit-ticket') as HTMLElement
+			)
+		};
+	}
+
+	static initWidgets() {
+		this.widgets = {
+			toast: new Toast(
+				document.querySelector('.toast') as HTMLElement
 			)
 		};
 	}

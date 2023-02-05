@@ -12,14 +12,9 @@ const createRequest = (options: Options) => {
 			options.callback(xhr.response);
 		}
 	});
+	if (['DELETE', 'PUT'].includes(options.method)) options.url += `&id=${options.data.id}`;
 	if (options.method === 'GET') {
-		let url = `${options.url}?`;
-		if (options.data) {
-			for (const [key, value] of Object.entries(options.data)) {
-				url += `${key}=${value}&`;
-			}
-		}
-		xhr.open(options.method, url.slice(0, -1));
+		xhr.open(options.method, options.url);
 		xhr.send();
 	} else {
 		const formData = new FormData();

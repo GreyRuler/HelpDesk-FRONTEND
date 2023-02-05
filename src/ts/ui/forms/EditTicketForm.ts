@@ -8,8 +8,7 @@ export default class EditTicketForm extends AsyncForm {
 	// eslint-disable-next-line class-methods-use-this
 	onSubmit(options: Data) {
 		Ticket.update(options, () => {
-			const modal = App.modals.createTicket;
-			modal.close();
+			App.page.renderTickets();
 		});
 	}
 }

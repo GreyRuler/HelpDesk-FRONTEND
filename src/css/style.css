@@ -4,14 +4,18 @@
 	box-sizing: border-box;
 }
 
+#app {
+	margin: 10%;
+}
+
 .svg-icon {
-	width: 1.5rem;
-	height: 1.5rem;
+	height: 2rem;
+	/*width: 2rem;*/
+	background: url('../img/edit-icon.svg') no-repeat center;
+	background-size: contain;
 }
 
 .svg-edit-icon {
-	background: url('../img/edit-icon.svg') no-repeat center;
-	background-size: contain;
 }
 
 .svg-cancel-icon {

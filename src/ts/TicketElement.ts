@@ -1,3 +1,8 @@
+import * as bootstrap from 'bootstrap';
+import Ticket from './api/Ticket';
+import App from './App';
+import Modal from './ui/modals/Modal';
+
 export default class TicketElement {
 	private ticket: HTMLElement;
 
@@ -7,16 +12,20 @@ export default class TicketElement {
 
 	static get markup() {
 		return `
-		<input class="status" type="checkbox">
-		<div class="shortDescription__ticket"></div>
-		<div class="longDescription__ticket"></div>
-		<div class="date__ticket"></div>
-		<button class="btn btn-outline-secondary edit" data-id="">
-			<div class="svg-icon svg-edit-icon"></div>
-		</button>
-		<button class="btn btn-outline-secondary remove" data-id="">
-			<div class="svg-icon svg-cancel-icon"></div>
-		</button>
+		<div class="d-flex justify-content-start align-items-center">
+			<input class="col-1 status" type="checkbox">
+			<div class="col-7 shortDescription__ticket"></div>
+			<div class="col-2 date__ticket"></div>
+			<button class="btn btn-outline-secondary edit col-1 svg-icon svg-edit-icon" data-id=""
+					data-bs-toggle="modal" data-bs-target="#modal-edit-ticket"></button>
+			<button class="btn btn-outline-secondary remove col-1 svg-icon svg-cancel-icon"
+					data-id=""></button>
+		</div>
+		<div class="d-none justify-content-between align-items-center longDescription__container">
+			<div class="col-1"></div>
+			<div class="col longDescription__ticket"></div>
+			<div class="col-4"></div>
+		</div>
 		`;
 	}
 
@@ -44,12 +53,19 @@ export default class TicketElement {
 		return '.btn.remove';
 	}
 
+	static get longDescriptionContainerSelector() {
+		return '.longDescription__container';
+	}
+
 	bindToDOM(
 		shortDescription: string, longDescription: string, created: string, id: number, status: boolean
 	) {
 		this.ticket.innerHTML = TicketElement.markup;
 		this.ticket.classList.add(
-			'd-flex', 'ticket', 'justify-content-center', 'align-items-center', 'p-1'
+			'ticket',
+			'p-1',
+			'border',
+			'border-secondary'
 		);
 
 		const statusEl = this.ticket
@@ -73,15 +89,44 @@ export default class TicketElement {
 		longDescriptionEl.textContent = longDescription;
 		dateEl.textContent = created;
 
-		editBtnEl.addEventListener('click', this.onEditTicket);
+		this.ticket.addEventListener('click', this.onToggleLongDescription.bind(this), true);
+		editBtnEl.addEventListener('click', this.onEditTicket.apply(
+			editBtnEl, [shortDescriptionEl, longDescriptionEl]
+		));
 		removeBtnEl.addEventListener('click', this.onRemoveTicket);
 	}
 
-	onEditTicket() {
-
+	onEditTicket(shortDescriptionEl: HTMLElement, longDescriptionEl: HTMLElement) {
+		return () => {
+			const modal = App.modals.editTicket;
+			const inputId = modal.element.querySelector(Modal.inputIdSelector) as HTMLInputElement;
+			// @ts-ignore
+			inputId.value = this.dataset.id;
+			modal.changeValueShortDescriptionEl(shortDescriptionEl.textContent || '');
+			modal.changeValueLongDescription(longDescriptionEl.textContent || '');
+		};
 	}
 
 	onRemoveTicket() {
+		const toast = new bootstrap.Toast(App.widgets.toast.element);
+		toast.show();
+		App.widgets.toast.bindToCallbackForBtnOk(() => {
+			toast.hide();
+			// @ts-ignore
+			Ticket.remove({ id: this.dataset.id as string }, () => {
+				App.page.renderTickets();
+			});
+		});
+	}
 
+	onToggleLongDescription(event: Event) {
+		const currentEl = event.target as HTMLElement;
+		if (!currentEl.classList.contains('status')
+			&& !currentEl.classList.contains('svg-icon')) {
+			const longDescriptionContainer = this.ticket
+				.querySelector(TicketElement.longDescriptionContainerSelector) as HTMLElement;
+			longDescriptionContainer.classList.toggle('d-none');
+			longDescriptionContainer.classList.toggle('d-flex');
+		}
 	}
 }

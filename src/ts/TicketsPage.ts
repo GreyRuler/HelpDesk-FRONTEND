@@ -11,7 +11,7 @@ export default class TicketsPage {
 
 	static get markup() {
 		return `
-		<button class="btn btn-outline-secondary"
+		<button class="btn btn-outline-secondary mb-2"
 				data-bs-toggle="modal" data-bs-target="#modal-create-ticket">
 				Добавить тикет
 		</button>
@@ -25,8 +25,11 @@ export default class TicketsPage {
 
 	bindToDOM() {
 		this.app.innerHTML = TicketsPage.markup;
-		const tickets = this.app.querySelector(TicketsPage.ticketsSelector) as HTMLElement;
+	}
 
+	renderTickets() {
+		const tickets = this.app.querySelector(TicketsPage.ticketsSelector) as HTMLElement;
+		tickets.innerHTML = '';
 		Ticket.list({}, (data) => {
 			data.forEach((item: ITicket) => {
 				const ticketEl = document.createElement('div');

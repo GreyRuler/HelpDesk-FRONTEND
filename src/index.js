@@ -1,7 +1,7 @@
-import App from './ts/App.ts';
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './css/style.css';
+import App from './ts/App.ts';
 // Точка входа webpack
 // Не пишите код в данном файле
 

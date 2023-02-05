@@ -1,53 +1,48 @@
-import bootstrap from 'bootstrap';
-
 export default class Modal	{
-	private modal: HTMLElement;
+	public element: HTMLElement;
 
 	constructor(modal: HTMLElement) {
-		this.modal = modal;
+		this.element = modal;
 	}
 
-	static get modalSelector() {
-		return '.modal';
+	static get inputIdSelector() {
+		return 'input[name="id"]';
 	}
 
-	static get formSelector() {
-		return 'form';
+	static get editShortDescriptionSelector() {
+		return '#short-description__edit';
 	}
 
-	static get titleSelector() {
-		return '#modalTitle';
+	static get editLongDescriptionSelector() {
+		return '#long-description__edit';
 	}
 
-	static get contentSelector() {
-		return '#content__input';
+	static get createShortDescriptionSelector() {
+		return '#short-description__create';
 	}
 
-	static get descriptionSelector() {
-		return '#description__input';
+	static get createLongDescriptionSelector() {
+		return '#long-description__create';
 	}
 
-	open() {
-		const modal = new bootstrap.Modal(
-			this.modal.querySelector(Modal.modalSelector) as HTMLElement
-		);
-		modal.show();
+	changeValueShortDescriptionEl(value: string) {
+		const shortDescriptionEl = this.element
+			.querySelector(Modal.editShortDescriptionSelector) as HTMLInputElement;
+		shortDescriptionEl.value = value;
 	}
 
-	close() {
-		const modal = new bootstrap.Modal(
-			this.modal.querySelector(Modal.modalSelector) as HTMLElement
-		);
-		modal.hide();
+	changeValueLongDescription(value: string) {
+		const longDescriptionEl = this.element
+			.querySelector(Modal.editLongDescriptionSelector) as HTMLInputElement;
+		longDescriptionEl.value = value;
 	}
 
-	changeValueContent(value: string) {
-		const contentEl = this.modal.querySelector(Modal.contentSelector) as HTMLInputElement;
-		contentEl.value = value;
-	}
-
-	changeValueDescription(value: string) {
-		const descriptionEl = this.modal.querySelector(Modal.descriptionSelector) as HTMLInputElement;
-		descriptionEl.value = value;
+	clear() {
+		const shortDescriptionEl = this.element
+			.querySelector(Modal.createShortDescriptionSelector) as HTMLInputElement;
+		const longDescriptionEl = this.element
+			.querySelector(Modal.createLongDescriptionSelector) as HTMLInputElement;
+		shortDescriptionEl.value = '';
+		longDescriptionEl.value = '';
 	}
 }
