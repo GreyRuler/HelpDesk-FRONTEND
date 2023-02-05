@@ -1,5 +1,6 @@
 import * as bootstrap from 'bootstrap';
 import Ticket from './api/Ticket';
+// eslint-disable-next-line import/no-cycle
 import App from './App';
 import Modal from './ui/modals/Modal';
 import Toast from './ui/widgets/Toast';

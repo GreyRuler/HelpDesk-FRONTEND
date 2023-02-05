@@ -1,4 +1,5 @@
 import Ticket from './api/Ticket';
+// eslint-disable-next-line import/no-cycle
 import TicketElement from './TicketElement';
 import { ITicket } from './types/ITicket';
 

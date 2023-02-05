@@ -1,9 +1,12 @@
 /**
  * Класс App управляет всем приложением
  * */
+// eslint-disable-next-line import/no-cycle
 import TicketsPage from './TicketsPage';
 import Modal from './ui/modals/Modal';
+// eslint-disable-next-line import/no-cycle
 import CreateTicketForm from './ui/forms/CreateTicketForm';
+// eslint-disable-next-line import/no-cycle
 import EditTicketForm from './ui/forms/EditTicketForm';
 import Toast from './ui/widgets/Toast';
 
