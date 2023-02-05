@@ -2,6 +2,7 @@ import * as bootstrap from 'bootstrap';
 import Ticket from './api/Ticket';
 import App from './App';
 import Modal from './ui/modals/Modal';
+import Toast from './ui/widgets/Toast';
 
 export default class TicketElement {
 	private ticket: HTMLElement;
@@ -108,7 +109,9 @@ export default class TicketElement {
 	}
 
 	onRemoveTicket() {
-		const toast = new bootstrap.Toast(App.widgets.toast.element);
+		const toastEl = App.widgets.toast.element
+			.querySelector(Toast.toastSelector) as HTMLElement;
+		const toast = new bootstrap.Toast(toastEl);
 		toast.show();
 		App.widgets.toast.bindToCallbackForBtnOk(() => {
 			toast.hide();

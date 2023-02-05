@@ -31,12 +31,13 @@ export default class App {
 		this.initForms();
 		this.initModals();
 		this.initWidgets();
+
+		this.widgets.toast.bindToDOM();
+		this.page.bindToDOM();
 	}
 
 	static initPages() {
 		this.page = new TicketsPage(this.app);
-		this.page.bindToDOM();
-		this.page.renderTickets();
 	}
 
 	static initModals() {
@@ -63,9 +64,7 @@ export default class App {
 
 	static initWidgets() {
 		this.widgets = {
-			toast: new Toast(
-				document.querySelector('.toast') as HTMLElement
-			)
+			toast: new Toast(this.app)
 		};
 	}
 }

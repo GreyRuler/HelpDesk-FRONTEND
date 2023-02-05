@@ -24,7 +24,9 @@ export default class TicketsPage {
 	}
 
 	bindToDOM() {
-		this.app.innerHTML = TicketsPage.markup;
+		this.app.innerHTML += TicketsPage.markup;
+
+		this.renderTickets();
 	}
 
 	renderTickets() {
